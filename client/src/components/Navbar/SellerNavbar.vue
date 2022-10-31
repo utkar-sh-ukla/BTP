@@ -1,10 +1,6 @@
 <template>
 	<nav>
-		<v-navigation-drawer
-			app
-			permanent
-			mini-variant
-			class="primary">
+		<v-navigation-drawer app permanent mini-variant class="primary">
 			<v-layout justify-space-between column fill-height>
 				<v-list>
 					<v-divider class="black"></v-divider>
@@ -12,16 +8,9 @@
 					<template v-for="(link, index) in links">
 						<v-tooltip v-bind:key="index" right color="p_text">
 							<template v-slot:activator="{ on }">
-								<v-list-tile
-											class="tile pt-4 pb-4"
-											:key="link.route"
-											v-on="on"
-											router :to="link.route">
+								<v-list-tile class="tile pt-4 pb-4" :key="link.route" v-on="on" router :to="link.route">
 									<v-list-tile-action>
-										<v-icon
-											color="p_text"
-											large
-											>
+										<v-icon color="p_text" large>
 											{{ link.icon }}
 										</v-icon>
 									</v-list-tile-action>
@@ -47,14 +36,10 @@
 
 					<v-tooltip right color="p_text">
 						<template v-slot:activator="{ on }">
-							<v-list-tile v-if="user_authenticated" class="tile pt-4 pb-4"
-																	v-on:click="switchProfile"
-																	v-on="on">
+							<v-list-tile v-if="user_authenticated" class="tile pt-4 pb-4" v-on:click="switchProfile"
+								v-on="on">
 								<v-list-tile-action>
-									<v-icon
-										color="p_orange"
-										large
-										>
+									<v-icon color="p_orange" large>
 										fas fa-random
 									</v-icon>
 								</v-list-tile-action>
@@ -70,14 +55,9 @@
 
 					<v-tooltip right color="p_text">
 						<template v-slot:activator="{ on }">
-							<v-list-tile v-if="user_authenticated" class="tile pt-4 pb-4"
-																	v-on:click="logout"
-																	v-on="on">
+							<v-list-tile v-if="user_authenticated" class="tile pt-4 pb-4" v-on:click="logout" v-on="on">
 								<v-list-tile-action>
-									<v-icon
-										:color="login_status"
-										large
-										>
+									<v-icon :color="login_status" large>
 										fas fa-power-off
 									</v-icon>
 								</v-list-tile-action>
@@ -101,7 +81,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-	data () {
+	data() {
 		return {
 			links: [
 				{ icon: 'fas fa-chart-line', route: '/seller/dashboard', text: 'DASHBOARD' },
@@ -113,49 +93,47 @@ export default {
 		}
 	},
 	methods: {
-		register () {
-			this.$router.push('/register')
+		register() {
+			this.$router.push( '/register' )
 		},
-		login () {
-			this.$router.push('/login')
+		login() {
+			this.$router.push( '/login' )
 		},
-		logout () {
-			localStorage.removeItem('token')
-			localStorage.removeItem('vuex')
-			this.$store.dispatch('update_user_status', { type: '' })
-			this.$router.push('/')
+		logout() {
+			localStorage.removeItem( 'token' )
+			localStorage.removeItem( 'vuex' )
+			this.$store.dispatch( 'update_user_status', { type: '' } )
+			this.$router.push( '/' )
 		},
-		switchProfile () {
-			this.$store.dispatch('update_user_status', { type: '' })
-			this.$router.push('/select-profile')
+		switchProfile() {
+			this.$store.dispatch( 'update_user_status', { type: '' } )
+			this.$router.push( '/select-profile' )
 		}
 	},
 	computed: {
 		login_status: function () {
-			if (this.user_authenticated) {
+			if ( this.user_authenticated ) {
 				return 'p_red'
 			} else {
 				return 'p_blue'
 			}
 		},
 		login_status_text: function () {
-			if (this.user_authenticated) {
+			if ( this.user_authenticated ) {
 				return 'LOGOUT'
 			} else {
 				return 'LOGIN'
 			}
 		},
-		...mapGetters([
+		...mapGetters( [
 			'user_authenticated'
-		])
+		] )
 	}
 }
 </script>
 
 <style scoped>
-
 .tile:hover {
 	background-color: #181c22;
 }
-
 </style>

@@ -806,3 +806,10 @@ npm ERR!     /home/vandern/.npm/_logs/2019-05-21T10_53_24_370Z-debug.log
 (node:8455) UnhandledPromiseRejectionWarning: #<_Event>
 (node:8455) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
 (node:3233) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:13888) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:18068) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:1418) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:4059) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:20162) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:32003) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(node:29601) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.

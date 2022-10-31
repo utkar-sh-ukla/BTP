@@ -30,20 +30,24 @@ export default {
 		BuyerNavbar,
 		SellerNavbar
 	},
-	data () {
+	data() {
 		return {
 		}
 	},
 	computed: {
-		...mapGetters([
+		...mapGetters( [
 			'user_authenticated',
 			'user_type'
-		])
+		] )
 	}
 }
 </script>
 
 <style>
+body {
+	font-family: 'Barlow', sans-serif;
+}
+
 .heading {
 	text-align: center;
 }

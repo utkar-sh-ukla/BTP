@@ -99,7 +99,7 @@ export const routes = [
 		path: '/select-profile',
 		name: 'select-profile',
 		component: () => import('@/views/both/ProfileSelection.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	},
 
 	// Buyer Routes
@@ -107,13 +107,13 @@ export const routes = [
 		path: '/buyer/search',
 		name: 'property-search',
 		component: () => import('@/views/buyer/PropertySearch.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	},
 	{
 		path: '/buyer/search/results',
 		name: 'search-results',
 		component: () => import('@/views/buyer/SearchResults.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	},
 	{
 		path: '/buyer/search/results/:property_id',
@@ -127,13 +127,13 @@ export const routes = [
 		path: '/seller/properties',
 		name: 'property-list',
 		component: () => import('@/views/seller/PropertyList.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	},
 	{
 		path: '/seller/properties/add',
 		name: 'add-property',
 		component: () => import('@/views/seller/AddProperty.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	},
 	{
 		path: '/seller/properties/:property_id',
@@ -145,6 +145,6 @@ export const routes = [
 		path: '/seller/properties/:property_id/verify',
 		name: 'verify-property',
 		component: () => import('@/views/seller/VerifyProperty.vue'),
-		beforeEnter: logged_in
+		// beforeEnter: logged_in
 	}
 ]

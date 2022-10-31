@@ -19,28 +19,26 @@
 							<form>
 								<h1 class="pb-4">Register</h1>
 								<input type="text" placeholder="First Name" v-model="register_details.fname" />
-								<input type="text" placeholder="Last Name" v-model="register_details.lname"/>
+								<input type="text" placeholder="Last Name" v-model="register_details.lname" />
 								<div id="acc_addr" class="white--text text-xs-left pt-2 pb-2">
 									Selected Account:
 									<span class="grey--text">{{ selected_addr }} </span>
 								</div>
-								<input type="email" placeholder="Email" v-model="register_details.email"/>
-								<input type="password" placeholder="Password" v-model="register_details.password"/>
-								<v-btn round outline color="p_blue"
-															v-on:click="register">REGISTER</v-btn>
+								<input type="email" placeholder="Email" v-model="register_details.email" />
+								<input type="password" placeholder="Password" v-model="register_details.password" />
+								<v-btn round outline color="p_blue" v-on:click="register">REGISTER</v-btn>
 							</form>
 						</div>
 						<div class="form-container login-container">
 							<form action="#">
 								<h1 class="pb-4">Login</h1>
-								<input type="email" placeholder="Email" v-model="login_details.email"/>
+								<input type="email" placeholder="Email" v-model="login_details.email" />
 								<input type="password" placeholder="Password" v-model="login_details.password">
 								<div id="acc_addr" class="white--text text-xs-left pt-2 pb-2">
 									Selected Account:
 									<span class="grey--text">{{ selected_addr }}</span>
-								</div >
-								<v-btn round outline color="p_blue"
-															v-on:click="login">
+								</div>
+								<v-btn round outline color="p_blue" v-on:click="login">
 									LOGIN
 								</v-btn>
 							</form>
@@ -49,15 +47,13 @@
 							<div class="overlay">
 								<div class="overlay-panel overlay-left">
 									<h1>Welcome</h1>
-									<v-btn round outline color="white"
-																v-on:click="load_login_form">
+									<v-btn round outline color="white" v-on:click="load_login_form">
 										LOGIN
 									</v-btn>
 								</div>
 								<div class="overlay-panel overlay-right">
 									<h1>Hello</h1>
-									<v-btn id="bob" round outline color="white"
-																			v-on:click="load_register_form">
+									<v-btn id="bob" round outline color="white" v-on:click="load_register_form">
 										REGISTER
 									</v-btn>
 								</div>
@@ -77,7 +73,7 @@ import axios from 'axios'
 const authUri = 'http://localhost:3000/api/auth'
 
 export default {
-	data () {
+	data() {
 		return {
 			selected_addr: '',
 			login_details: {
@@ -96,81 +92,81 @@ export default {
 	},
 	methods: {
 		load_login_form: function () {
-			const container = document.getElementById('auth_container')
-			this.$router.push('/login')
-			container.classList.remove('right-panel-active')
+			const container = document.getElementById( 'auth_container' )
+			this.$router.push( '/login' )
+			container.classList.remove( 'right-panel-active' )
 		},
 		load_register_form: function () {
-			const container = document.getElementById('auth_container')
-			this.$router.push('/register')
-			container.classList.add('right-panel-active')
+			const container = document.getElementById( 'auth_container' )
+			this.$router.push( '/register' )
+			container.classList.add( 'right-panel-active' )
 		},
-		async load_accounts () {
-			if (window.ethereum !== 'undefined') {
+		async load_accounts() {
+			if ( window.ethereum !== 'undefined' ) {
 				let addresses = await window.ethereum.enable()
 				this.selected_addr = addresses[0]
 			} else {
-				alert('Please download and install the Metamask browser addon to continue')
+				alert( 'Please download and install the Metamask browser addon to continue' )
 			}
 		},
-		isRegisterFormEmpty () {
+		isRegisterFormEmpty() {
 			this.errors = []
-			if (this.register_details.fname === '' ||
+			if ( this.register_details.fname === '' ||
 				this.register_details.lname === '' ||
 				this.register_details.email === '' ||
-				this.register_details.password === '') {
+				this.register_details.password === '' ) {
 				this.formInvalid = true
-				this.errors.push('One or more fields have been left empty')
+				this.errors.push( 'One or more fields have been left empty' )
 				return true
 			}
 			this.formInvalid = false
 			return false
 		},
-		isLoginFormEmpty () {
+		isLoginFormEmpty() {
 			this.errors = []
-			if (this.login_details.email === '' || this.login_details.password === '') {
+			if ( this.login_details.email === '' || this.login_details.password === '' ) {
 				this.formInvalid = true
-				this.errors.push('One or more fields have been left empty')
+				this.errors.push( 'One or more fields have been left empty' )
 				return true
 			}
 			this.formInvalid = false
 			return false
 		},
-		login () {
-			if (!this.isLoginFormEmpty()) {
-				if (this.selected_addr !== '') {
+		login() {
+			if ( !this.isLoginFormEmpty() ) {
+				if ( this.selected_addr !== '' ) {
 					const body = {
 						email: this.login_details.email,
 						password: this.login_details.password,
 						account_address: this.selected_addr
 					}
 
-					axios.post(authUri + '/login', body)
-						.then(res => {
-							if (res.statusText === 'OK') {
+					axios.post( authUri + '/login', body )
+						.then( res => {
+							if ( res.statusText === 'OK' ) {
 								localStorage.token = res.data.token
 								this.login_details = {
 									email: '',
 									password: ''
 								}
-								this.$store.dispatch('update_user_status', { type: '' })
-								this.$router.push('/select-profile')
+								this.$store.dispatch( 'update_user_status', { type: '' } )
+								this.$router.push( '/select-profile' )
 							}
-						})
-						.catch(err => {
-							console.log(err)
+						} )
+						.catch( err => {
+							console.log( err )
 							this.errors = []
-							this.errors.push('Incorrect email or password entered')
+							this.errors.push( 'Incorrect email or password entered' )
 							this.formInvalid = true
-						})
+						} )
 				} else {
-					alert('Please login to metamask to continue')
+					alert( 'Please login to metamask to continue' )
 				}
 			}
 		},
 		register: function () {
-			if (!this.isRegisterFormEmpty()) {
-				if (this.selected_addr !== '') {
+			if ( !this.isRegisterFormEmpty() ) {
+				if ( this.selected_addr !== '' ) {
 					const body = {
 						email: this.register_details.email,
 						password: this.register_details.password,
@@ -178,45 +174,45 @@ export default {
 						account_address: this.selected_addr
 					}
 
-					axios.post('http://localhost:3000/api/auth/register', body).then((res) => {
+					axios.post( 'http://localhost:3000/api/auth/register', body ).then( ( res ) => {
 						// console.log(res)
-						if (res.data.error === 'email taken') {
+						if ( res.data.error === 'email taken' ) {
 							this.errors = []
-							this.errors.push('Sorry, that email address is already taken.')
+							this.errors.push( 'Sorry, that email address is already taken.' )
 							this.formInvalid = true
-						} else if (res.data.error === 'none') {
-							this.addToScreeningDb(res.data.user_id)
+						} else if ( res.data.error === 'none' ) {
+							this.addToScreeningDb( res.data.user_id )
 						}
-					})
-						.catch((err) => {
-							console.log(err)
+					} )
+						.catch( ( err ) => {
+							console.log( err )
 							this.errors = []
-							this.errors.push('Invalid first name, last name, account address or email address')
+							this.errors.push( 'Invalid first name, last name, account address or email address' )
 							this.formInvalid = true
-						})
+						} )
 				} else {
-					alert('Please login to metamask to continue')
+					alert( 'Please login to metamask to continue' )
 				}
 			}
 		},
-		async addToScreeningDb (userId) {
-			let userUid = await web3.utils.sha3(this.selected_addr + this.register_details.email)
+		async addToScreeningDb( userId ) {
+			let userUid = await web3.utils.sha3( this.selected_addr + this.register_details.email )
 			const body = {
 				account_address: this.selected_addr,
 				uid: userUid,
 				user_id: userId
 			}
 
-			axios.post('http://localhost:3000/api/screening/add-report', body)
-				.then((res) => {
+			axios.post( 'http://localhost:3000/api/screening/add-report', body )
+				.then( ( res ) => {
 					this.clearForm()
-				})
-				.catch(error => {
-					console.log(error)
-				})
+				} )
+				.catch( error => {
+					console.log( error )
+				} )
 		},
 
-		clearForm () {
+		clearForm() {
 			this.register_details = {
 				fname: '',
 				lname: '',
@@ -224,25 +220,24 @@ export default {
 				password: ''
 			}
 
-			if (this.register_details.fname === '') {
+			if ( this.register_details.fname === '' ) {
 				this.load_login_form()
 			}
 		}
 	},
-	mounted () {
+	mounted() {
 		this.load_accounts()
-		if (this.$route.path === '/register') {
+		if ( this.$route.path === '/register' ) {
 			this.load_register_form()
 		}
-		window.ethereum.on('accountsChanged', (accounts) => {
+		window.ethereum.on( 'accountsChanged', ( accounts ) => {
 			this.selected_addr = accounts[0]
-		})
+		} )
 	}
 }
 </script>
 
 <style>
-
 .auth_container {
 	background-color: #1e232a;
 	border-radius: 10px;
@@ -286,6 +281,7 @@ export default {
 }
 
 @keyframes show {
+
 	0%,
 	49.99% {
 		opacity: 0;
